@@ -102,7 +102,7 @@ def add_device(name):
 		print("No new device was connected.\nAborting...")
 		sys.exit()
 	
-	rule = '''SUBSYSTEM=="tty", ATTRS{{idVendor}}=="{}", ATTRS{{idProduct}}=="{}", ATTRS{{serial}}=="{}", SYMLINK+="{}"'''.format(new_idVendor, new_idProduct, new_iSerial, name)
+	rule = '''\nSUBSYSTEM=="tty", ATTRS{{idVendor}}=="{}", ATTRS{{idProduct}}=="{}", ATTRS{{serial}}=="{}", SYMLINK+="{}"'''.format(new_idVendor, new_idProduct, new_iSerial, name)
 	print(rule)
 	
 	if rule not in rule_fh.read():
