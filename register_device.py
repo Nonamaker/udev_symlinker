@@ -12,7 +12,7 @@ import time
 import subprocess
 
 def add_device(name):
-	raw_input('''Ensure the Agilent is NOT connected to any serial port.''')
+	raw_input('''Ensure the {} is NOT connected to any serial port.'''.format(name))
 	rule_file = "/etc/udev/rules.d/99-usb-serial.rules"
 	rule_fh = open(rule_file, "a+")
 
@@ -51,7 +51,7 @@ def add_device(name):
 		except:
 			continue
 	
-	raw_input('''Connect the Agilent now.''')
+	raw_input('''Connect the {} now.'''.format(name))
 	
 	try:
 		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).split("\n")
@@ -110,7 +110,7 @@ def add_device(name):
 		rule_fh.close()
 		os.system("sudo udevadm control --reload-rules")
 		os.system("sudo udevadm trigger")
-		print("Added Agilent to USb rules")
+		print('''Added Agilent to USb rules'''.format(name))
 	else:
 		rule_fh.close()
-		print("This Agilent device already exists")			
+		print('''This {} device already exists'''.format(name))			
