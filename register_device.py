@@ -167,6 +167,7 @@ def add_device(name):
 				rule = '''{}, ATTRS{{idProduct}}=="{}"'''.format(rule, new_idProduct)
 			if new_iSerial != "":
 				rule = '''{}, ATTRS{{serial}}=="{}"'''.format(rule, new_iSerial)
+			rule = '''{}, SYMLINK+="{}"'''.format(rule, name)
 
 	else:	
 		rule = '''\nSUBSYSTEM=="tty", ATTRS{{idVendor}}=="{}", ATTRS{{idProduct}}=="{}", ATTRS{{serial}}=="{}", SYMLINK+="{}"'''.format(new_idVendor, new_idProduct, new_iSerial, name)
