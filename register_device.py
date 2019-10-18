@@ -17,7 +17,7 @@ def abort(message="ERROR"):
 	sys.exit()
 
 def add_device(name):
-	raw_input('''Ensure the {} is NOT connected to any serial port.'''.format(name))
+	input('''Ensure the {} is NOT connected to any serial port.'''.format(name))
 	rule_file = "/etc/udev/rules.d/99-usb-serial.rules"
 	try:
 		rule_fh = open(rule_file, "a+") # TODO Ensure file was opened/created
@@ -61,7 +61,7 @@ def add_device(name):
 		except:
 			continue
 	
-	raw_input('''Connect the {} now.'''.format(name))
+	input('''Connect the {} now.'''.format(name))
 	
 	try:
 		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).split("\n")
@@ -114,7 +114,7 @@ def add_device(name):
 		print("Could not detect new device information.")
 		manual_select = None
 		while True:
-			manual_select = raw_input("Would you like to select a device manually? [Y,N]\n").lower()
+			manual_select = input("Would you like to select a device manually? [Y,N]\n").lower()
 			if 'y' in manual_select or 'n' in manual_select:
 				break
 		if manual_select == "n":
@@ -133,7 +133,7 @@ def add_device(name):
 				print('''[{}]:  {}'''.format(i, device))
 			selection = None
 			while True:
-				selection = raw_input("Enter number of device to add.\n")
+				selection = input("Enter number of device to add.\n")
 				if selection.isdigit():
 					selection = int(selection)
 					if selection <= len(new_lsusb) - 1:
@@ -162,7 +162,7 @@ def add_device(name):
 			if new_idVendor == "" or new_idProduct == "" or new_iSerial == "":
 				print('''ALERT -- This device lacks a unique identifier. Adding it may cause conflicts with existing or future devices!''')
 				while True:
-					selection = raw_input("Are you sure you want to add this device? [Y,N]\n").lower()
+					selection = input("Are you sure you want to add this device? [Y,N]\n").lower()
 					if 'y' in selection or 'n' in selection:
 						break
 				if selection == "n":
