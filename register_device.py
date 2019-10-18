@@ -5,7 +5,7 @@
 #  Adds a SymLink as specified by caller to a new device
 #    Returns True on success, False otherwise
 #
-# ############################################
+#############################################
 import os
 import re
 import sys
@@ -23,22 +23,24 @@ def add_device(name):
 		rule_fh = open(rule_file, "a+") # TODO Ensure file was opened/created
 	except:
 		abort('''Could not open file: {}'''.format(rule_file))
+
 	try:
-		old_lsusb = subprocess.check_output(['''sudo lsusb'''], shell=True).split("\n")
+		old_lsusb = subprocess.check_output(['''sudo lsusb'''], shell=True).decode().split("\n")
 		del old_lsusb[-1]
 	except:
+		print("Not working")
 		old_lsusb = []
 	### Create list of existing idProduct, idVendor, iSerial
 	try:
-		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).split("\n")
+		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).decode().split("\n")
 	except:
 		iSerial = []
 	try:
-		idProduct = subprocess.check_output(['''sudo lsusb -v | grep idProduct | grep "0x[a-z0-9]\{4\}" '''], shell=True).split("\n")
+		idProduct = subprocess.check_output(['''sudo lsusb -v | grep idProduct | grep "0x[a-z0-9]\{4\}" '''], shell=True).decode().split("\n")
 	except:
 		idProduct = []
 	try:
-		idVendor = subprocess.check_output(['''sudo lsusb -v | grep idVendor | grep "0x[a-z0-9]\{4\}" '''], shell=True).split("\n")
+		idVendor = subprocess.check_output(['''sudo lsusb -v | grep idVendor | grep "0x[a-z0-9]\{4\}" '''], shell=True).decode().split("\n")
 	except:
 		idVendor = []
 	
@@ -64,15 +66,15 @@ def add_device(name):
 	input('''Connect the {} now.'''.format(name))
 	
 	try:
-		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).split("\n")
+		iSerial = subprocess.check_output(['''sudo lsusb -v | grep iSerial | grep "[A-Z0-9]\{8\}" '''], shell=True).decode().split("\n")
 	except:
 		iSerial = []
 	try:
-		idProduct = subprocess.check_output(['''sudo lsusb -v | grep idProduct | grep "0x[a-z0-9]\{4\}" '''], shell=True).split("\n")
+		idProduct = subprocess.check_output(['''sudo lsusb -v | grep idProduct | grep "0x[a-z0-9]\{4\}" '''], shell=True).decode().split("\n")
 	except:
 		idProduct = []
 	try:
-		idVendor = subprocess.check_output(['''sudo lsusb -v | grep idVendor | grep "0x[a-z0-9]\{4\}" '''], shell=True).split("\n")
+		idVendor = subprocess.check_output(['''sudo lsusb -v | grep idVendor | grep "0x[a-z0-9]\{4\}" '''], shell=True).decode().split("\n")
 	except:
 		idVendor = []
 	
@@ -124,7 +126,7 @@ def add_device(name):
 			for i, device in enumerate(old_lsusb):
 				print('''{}'''.format(device))
 			try:
-				new_lsusb = subprocess.check_output(['''sudo lsusb'''], shell=True).split("\n")
+				new_lsusb = subprocess.check_output(['''sudo lsusb'''], shell=True).decode().split("\n")
 				del new_lsusb[-1]	
 			except:
 				new_lsusb = []
@@ -139,7 +141,7 @@ def add_device(name):
 					if selection <= len(new_lsusb) - 1:
 						break
 			try:
-				devices = subprocess.check_output(['''sudo lsusb -v'''], shell=True).split("\n\n")
+				devices = subprocess.check_output(['''sudo lsusb -v'''], shell=True).decode().split("\n\n")
 			except:
 				abort("Could not read output of lsusb -v")
 			try:
