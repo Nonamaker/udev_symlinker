@@ -98,9 +98,9 @@ def add_device(name):
 	
 	new_iSerial, new_idProduct, new_idVendor = None, None, None
 	from collections import Counter
-	new_iSerial = list((Counter(all_iSerial) - Counter(old_iSerial)).elements())
-	new_idProduct = list((Counter(all_idProduct) - Counter(old_idProduct)).elements())
-	new_idVendor = list((Counter(all_idVendor) - Counter(old_idVendor)).elements())
+	new_iSerial = list((Counter(all_iSerial) - Counter(old_iSerial)).elements())[0]
+	new_idProduct = list((Counter(all_idProduct) - Counter(old_idProduct)).elements())[0]
+	new_idVendor = list((Counter(all_idVendor) - Counter(old_idVendor)).elements())[0]
 	
 	#####     Manual Selection     #####	
 	if (
