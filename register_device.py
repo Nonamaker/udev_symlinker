@@ -97,16 +97,11 @@ def add_device(name):
 			continue
 	
 	new_iSerial, new_idProduct, new_idVendor = None, None, None
+	from collections import Counter
+	new_iSerial = list((Counter(all_iSerial) - Counter(old_iSerial)).elements())
+	new_idProduct = list((Counter(all_idProduct) - Counter(old_idProduct)).elements())
+	new_idVendor = list((Counter(all_idVendor) - Counter(old_idVendor)).elements())
 	
-	for value in all_iSerial:
-		if value not in old_iSerial:
-			new_iSerial = value
-	for value in all_idProduct:
-		if value not in old_idProduct:
-			new_idProduct = value
-	for value in all_idVendor:
-		if value not in old_idVendor:
-			new_idVendor = value
 	#####     Manual Selection     #####	
 	if (
 	  new_iSerial is None
@@ -114,6 +109,7 @@ def add_device(name):
 	  or new_idVendor is None
 	):
 		print("Could not detect new device information.")
+		print("idVendor = {}\nidProduct = {}\niSerial = {}".format(new_idVendor, new_idProduct, new_iSerial))
 		manual_select = None
 		while True:
 			manual_select = input("Would you like to select a device manually? [Y,N]\n").lower()
