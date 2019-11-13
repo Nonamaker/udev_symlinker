@@ -191,7 +191,7 @@ def add_device(name):
 		rule_fh.close()
 		os.system("sudo udevadm control --reload-rules")
 		os.system("sudo udevadm trigger")
-		print('''Added Agilent to USb rules'''.format(name))
+		print('''Added {} to USb rules'''.format(name))
 	else:
 		rule_fh.close()
 		print('''This {} device already exists'''.format(name))
